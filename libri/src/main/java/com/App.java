@@ -1,10 +1,6 @@
 package com;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -12,9 +8,6 @@ import java.sql.SQLException;
 import com.database.LibroDAO;
 import com.administrator.User;
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-import com.libro.Libro;
 
 public class App 
 {
