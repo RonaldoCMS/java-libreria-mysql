@@ -1,0 +1,5 @@
+{
+    "database" : "jdbc:mysql://localhost:3306/java-libreria-mysql",
+    "username" : "root",
+    "password" : ""
+}
