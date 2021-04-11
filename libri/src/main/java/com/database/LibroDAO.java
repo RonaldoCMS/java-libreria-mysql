@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.libro.Libro;
+import java.sql.PreparedStatement;
 
 public class LibroDAO {
 
@@ -37,16 +38,49 @@ public class LibroDAO {
         }
     }
 
-    public void insertLibro(Libro libro) {
+    public void insertLibro(Libro libro) throws SQLException {
+        //Creo la sql di default
+        String sql = "INSERT INTO book (title, author, price) VALUES (?, ?, ?)";
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setString(1, libro.getTitle()); //Primo ?
+        statement.setString(2, libro.getAuthor()); //Secondo ?
+        statement.setFloat(3, libro.getPrice()); //Terzo ?
+
+        //Eseguo la querry una volta inserito gli attributi
+        statement.executeUpdate();
+
+        statement.close();
+        
+    }
+
+    public void updateLibro(Libro libro) throws SQLException {
+        String sql = "UPDATE book SET title = ?, author = ?, price = ?";
+        sql += " WHERE book_id = ?";
+        connect();
+         
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setString(1, libro.getTitle());
+        statement.setString(2, libro.getAuthor());
+        statement.setFloat(3, libro.getPrice());
+        statement.setInt(4, libro.getId());
+
+        statement.executeUpdate();
+        statement.close();
 
     }
 
-    public void updateLibro(Libro libro) {
-
-    }
-
-    public void deleteLibro(Libro libro) {
-
+    public void deleteLibro(Libro libro) throws SQLException {
+        String sql = "DELETE FROM book where book_id = ?";
+         
+        connect();
+         
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setInt(1, libro.getId());
+         
+        statement.executeUpdate();
+        statement.close();
     }
 
     public Libro getLibro(int id) {
